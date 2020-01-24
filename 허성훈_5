@@ -1,0 +1,54 @@
+class Solution {
+public:
+    char p[1000];
+
+    string longestPalindrome(string s) {
+        string curStr = "";
+        string maxStr = "";
+
+        if(s.compare("") == 0) {
+            return "";
+        } else if(s.length() == 1) {
+            return s;
+        }
+        
+        for(int i = s.length()-2; i >= 0; i--) {
+            p[i] = 'T';
+            curStr = s.at(i);
+            if(curStr.length() > maxStr.length()) {
+                maxStr = curStr;
+            }
+
+            for(int j = s.length()-1; j > i; j--) {
+                if(p[j-1] == 'T') {
+                    if(s.at(i) == s.at(j)) {
+                        p[j] = 'T';
+                    } else {
+                        p[j] = 'F';
+                    }
+                } else if(p[j-1] == 'F') {
+                    p[j] = 'F';
+                }
+                
+                if(p[j] != 'T' && p[j] != 'F') {
+                    p[j] = isPalindrome(s, i, j);
+                }
+                if(p[j] == 'T') {
+                    curStr = s.substr(i, j-i+1);
+                    if(curStr.length() > maxStr.length()) {
+                        maxStr = curStr;
+                    }
+                }
+            }
+        }
+        return maxStr;
+    }
+     char isPalindrome(string s, int sIdx, int eIdx) {
+         while(sIdx < eIdx) {
+             if(s.at(sIdx++) != s.at(eIdx--)) {
+                 return 'F';
+             }
+         }
+         return 'T';
+     }
+};
