@@ -1,0 +1,29 @@
+class Solution {
+public:
+    bool wordPattern(string pattern, string str) {
+        vector<string> tokens;
+        string strTmp;
+        stringstream strStream(str);
+        while(getline(strStream, strTmp, ' ')) {
+            tokens.push_back(strTmp);
+        }
+        
+        if(pattern.size() != tokens.size()) {
+            return false;
+        }
+        
+        for(int i = 0; i < pattern.size()-1; i++) {
+            for(int j = i; j < pattern.size(); j++) {
+                if(pattern.at(i) == pattern.at(j) &&
+                   tokens.at(i).compare(tokens.at(j)) != 0) {
+                       return false;
+                }
+                if(pattern.at(i) != pattern.at(j) &&
+                   tokens.at(i).compare(tokens.at(j)) == 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+};
