@@ -1,0 +1,33 @@
+class Solution {
+public:
+    string getHint(string secret, string guess) {
+        char charArray[secret.size()];
+        string result = "";
+        int a = 0, b = 0;
+        
+        memset(charArray, 0, sizeof(charArray));
+        for(int i = 0; i < secret.size(); i++) {
+            if(secret.at(i) == guess.at(i)) {
+                a++;
+                charArray[i] = 'P';
+            }
+        }
+        
+        for(int i = 0; i < secret.size(); i++) {
+            if(secret.at(i) == guess.at(i)) {
+                continue;
+            }
+            for(int j = 0; j < guess.size(); j++) {
+                if(charArray[j] == 'P') {
+                    continue;
+                }
+                if(secret.at(i) == guess.at(j)) {
+                    b++;
+                    charArray[j] = 'P';
+                    break;
+                }
+            }
+        }
+        return to_string(a) + "A" + to_string(b) + "B";
+    }
+};
