@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int minPathSum(vector<vector<int>>& grid) {
+        if(grid.empty()) {
+            return 0;
+        }
+        
+        int pathSum[grid.size()][grid.at(0).size()];
+        
+        for(int i = 0; i < grid.size(); i++) {
+            for(int j = 0; j < grid.at(i).size(); j++) {
+                if(i == 0 && j == 0) {
+                    pathSum[i][j] = grid.at(i).at(j);
+                    continue;
+                }
+                if(i == 0) {
+                    pathSum[i][j] = pathSum[i][j-1] + grid.at(i).at(j);
+                    continue;
+                }
+                if(j == 0) {
+                    pathSum[i][j] = pathSum[i-1][j] + grid.at(i).at(j);
+                    continue;
+                }
+                pathSum[i][j] = pathSum[i-1][j] > pathSum[i][j-1] ? pathSum[i][j-1] : pathSum[i-1][j];
+                pathSum[i][j] += grid.at(i).at(j);
+            }
+        }
+        return pathSum[grid.size()-1][grid.at(0).size()-1];
+    }
+};
