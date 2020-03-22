@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int guessNumber(int n) {
+        int left = 1, right = n, m;
+        
+        while(left <= right){
+            m = left + (right-left)/2;
+            int k = guess(m);
+            if(k == 0) {
+                return m;
+            } else if(k > 0) {
+                left = m + 1;
+            } else {
+                right = m - 1;
+            }
+        }
+        return -1;
+    }
+};
