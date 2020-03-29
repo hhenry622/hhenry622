@@ -1,0 +1,18 @@
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+        int arr[256] = {0, };
+
+        for(char ch : magazine) {
+            arr[ch]++;
+        }
+        
+        for(char ch : ransomNote) {
+            arr[ch]--;
+            if(arr[ch] < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+};
