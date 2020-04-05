@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int len = nums.size();
+        vector<int> vecNum;
+        
+        if(len == 0) {
+            return 0;
+        }
+        if(len == 1) {
+            return nums.at(0);
+        }
+        if(len == 2) {
+            return max(nums.at(0), nums.at(1));
+        }
+        
+        vecNum.push_back(nums.at(0));
+        vecNum.push_back(max(nums.at(0), nums.at(1)));
+        
+        for(int i = 2; i < len; i++) {
+            vecNum.push_back(max(vecNum.at(i-2)+nums.at(i), vecNum.at(i-1)));
+        }
+        return vecNum.at(len-1);
+    }
+};
