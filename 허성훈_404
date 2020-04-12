@@ -1,0 +1,21 @@
+class Solution {
+public:
+	bool flag = false;
+	int sum=0;
+
+    int sumOfLeftLeaves(TreeNode* root) {
+		DFS(root);
+		return sum;
+	}
+	void DFS(TreeNode* p) {
+		if (p != NULL) {
+			if (p->left == NULL && p->right == NULL && flag == true) {
+				sum += p->val;
+			}
+			flag = true;
+			DFS(p->left);
+			flag = false;
+			DFS(p->right);
+		}
+	}
+};
